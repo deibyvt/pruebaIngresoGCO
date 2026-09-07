@@ -1,0 +1,1032 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat+Alternates:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ==========================================================================
+   RESET & VIEWPORT (NO SCROLL, 100% PANTALLA COMPLETA)
+   ========================================================================== */
+
+:root {
+  --font-title: 'Bebas Neue', sans-serif;
+  --font-body: 'Montserrat Alternates', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* CERO scroll vertical */
+  font-family: var(--font-body);
+  background-color: #ccd3db;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-viewport {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Fondo estilo estudio fotográfico en código puro (degradado radial uniforme) */
+  background: radial-gradient(circle at 45% 50%, #e3e8ee 0%, #cbd3dc 48%, #afb8c3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   VISTA 1: BIENVENIDA (HERO 100VH)
+   ========================================================================== */
+
+.vista-bienvenida-container {
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+/* Columna Izquierda: Mosaico 2x3 con fotos originales en proporción real */
+.mosaic-section {
+  flex: 1.1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 14px;
+  height: min(84vh, 720px);
+}
+
+.mosaic-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  height: 100%;
+  aspect-ratio: 788 / 963; /* Proporción nativa exacta de las fotos (788x963 px) */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.09);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.mosaic-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+.mosaic-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Proporción matemática perfecta sin cortes */
+  display: block;
+}
+
+/* Columna Derecha: Contenido Editorial */
+.hero-text-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+.hero-content {
+  max-width: 480px;
+}
+
+.hero-title {
+  font-family: var(--font-title);
+  font-size: clamp(4.2rem, 6.8vw, 5.8rem);
+  line-height: 0.95;
+  letter-spacing: 0.8px;
+  color: #000000;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero-description {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  line-height: 1.5;
+  color: #0f172a;
+  font-weight: 500;
+  margin-bottom: 38px;
+  max-width: 440px;
+}
+
+.btn-unirme {
+  display: inline-block;
+  background-color: #17425f; /* Azul petróleo de la referencia */
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 14px 44px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(23, 66, 95, 0.32);
+}
+
+.btn-unirme:hover {
+  background-color: #0f2f45;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(23, 66, 95, 0.45);
+}
+
+.btn-unirme:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   VISTA 2: SELECCIÓN DE MARCA (100VH)
+   ========================================================================== */
+
+.vista-seleccion-container {
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+}
+
+/* Columna Izquierda: Foto de modelo de la marca seleccionada */
+.preview-section {
+  flex: 0.95;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-card {
+  height: min(84vh, 720px);
+  aspect-ratio: 788 / 963;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 28px;
+  display: block;
+}
+
+@keyframes fadeInImage {
+  from {
+    opacity: 0.2;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInImage 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Columna Derecha: Encabezado, Grid de 6 marcas y Botón Continuar */
+.brands-selection-section {
+  flex: 1.25;
+  height: min(84vh, 720px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brands-selection-header {
+  margin-bottom: 20px;
+}
+
+.btn-volver-link {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-volver-link:hover {
+  color: #0f172a;
+  transform: translateX(-3px);
+}
+
+.brands-selection-title {
+  font-family: var(--font-body);
+  font-size: clamp(1.65rem, 2.1vw, 2.2rem);
+  font-weight: 800;
+  color: #050505;
+  line-height: 1.18;
+  letter-spacing: -0.4px;
+}
+
+/* Grid de marcas: 2 columnas x 3 filas */
+.brands-interactive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 16px 28px;
+  margin-bottom: 22px;
+}
+
+.brand-select-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.brand-select-item:hover {
+  background: rgba(255, 255, 255, 0.72);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-color: rgba(23, 66, 95, 0.2);
+}
+
+.brand-select-item.active {
+  border-color: #17425f;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(23, 66, 95, 0.16);
+  transform: translateY(-2px);
+}
+
+.brand-logo-wrapper {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.brand-vector-logo {
+  max-height: 40px;
+  max-width: 165px;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-slogan-text {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  color: #4b5563;
+  line-height: 1.35;
+  font-weight: 500;
+  margin: 0;
+}
+
+.brand-select-item.active .brand-slogan-text {
+  color: #1e293b;
+}
+
+.brand-selected-badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #17425f;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.selection-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn-continuar {
+  padding: 13px 38px;
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   VISTA 3: FORMULARIO DE REGISTRO COMPACTO (100VH)
+   ========================================================================== */
+
+.vista-formulario-container {
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+/* Columna Izquierda: Foto destacada con badge y botón cambiar */
+.form-brand-preview-section {
+  flex: 0.9;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-brand-card {
+  height: min(84vh, 700px);
+  aspect-ratio: 788 / 963;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-brand-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 28px;
+  display: block;
+}
+
+.form-brand-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.65) 100%);
+  border-radius: 28px;
+}
+
+.btn-cambiar-marca {
+  pointer-events: auto;
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #17425f;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+}
+
+.btn-cambiar-marca:hover {
+  background: #ffffff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.form-brand-badge {
+  text-align: left;
+  color: #ffffff;
+}
+
+.form-brand-badge-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+  font-weight: 600;
+  display: block;
+}
+
+.form-brand-badge-name {
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  letter-spacing: 0.8px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+/* Columna Derecha: Tarjeta de Formulario */
+.form-content-section {
+  flex: 1.25;
+  max-height: min(88vh, 720px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(14px);
+  padding: 24px 34px;
+  border-radius: 24px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+.form-header {
+  margin-bottom: 12px;
+}
+
+.form-subtitle-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #17425f;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.form-main-title {
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 2.7vw, 2.5rem);
+  color: #0a0a0a;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.form-lead-text {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.35;
+}
+
+.form-alert-error {
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #991b1b;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.fidelizacion-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin-bottom: 8px;
+}
+
+.form-grid-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px 12px;
+  margin-bottom: 10px;
+}
+
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-label {
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.form-input,
+.form-select {
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #17425f;
+  box-shadow: 0 0 0 3px rgba(23, 66, 95, 0.12);
+}
+
+.form-input.is-invalid,
+.form-select.is-invalid {
+  border-color: #ef4444;
+  background-color: #fffbfa;
+}
+
+.field-error-msg {
+  font-size: 0.68rem;
+  color: #dc2626;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.habeas-data-container {
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 8px;
+  border: 1px dashed #cbd5e1;
+}
+
+.habeas-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.habeas-checkbox {
+  margin-top: 2px;
+  accent-color: #17425f;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.habeas-text {
+  font-size: 0.75rem;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.btn-ver-politica {
+  background: none;
+  border: none;
+  color: #17425f;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.75rem;
+  margin-left: 3px;
+}
+
+.form-submit-row {
+  display: flex;
+}
+
+.btn-submit-form {
+  width: 100%;
+  padding: 12px 24px;
+  font-size: 1.05rem;
+}
+
+.loading-spinner-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner-icon {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Modal Habeas Data */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 20px;
+  max-width: 580px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 16px 22px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+.btn-close-modal {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #64748b;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 18px 22px;
+  font-size: 0.85rem;
+  color: #334155;
+  line-height: 1.5;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.modal-body p {
+  margin-bottom: 10px;
+}
+
+.modal-body ul {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.modal-body li {
+  margin-bottom: 4px;
+}
+
+.modal-footer {
+  padding: 14px 22px;
+  border-top: 1px solid #e2e8f0;
+  text-align: right;
+}
+
+.btn-modal-entendido {
+  padding: 10px 24px;
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   VISTA 4: MEMBRESÍA DIGITAL / ÉXITO (100VH)
+   ========================================================================== */
+
+.vista-exito-container {
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exito-content-card {
+  max-width: 660px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  padding: 32px 42px;
+  border-radius: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.exito-header {
+  margin-bottom: 20px;
+}
+
+.exito-badge-check {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #10b981;
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+}
+
+.exito-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #059669;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.exito-title {
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  color: #0f172a;
+  line-height: 1.05;
+  margin-bottom: 4px;
+}
+
+.exito-subtitle {
+  font-size: 0.88rem;
+  color: #475569;
+  max-width: 460px;
+  margin: 0 auto;
+  line-height: 1.35;
+}
+
+/* Tarjeta de Membresía VIP */
+.digital-membership-card {
+  background: linear-gradient(135deg, #17425f 0%, #0d283c 100%);
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 22px 26px;
+  box-shadow: 0 16px 36px rgba(15, 39, 56, 0.35);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  margin-bottom: 22px;
+}
+
+.digital-membership-card::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.card-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.card-brand-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-brand-logo {
+  height: 32px;
+  max-width: 120px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.card-member-tier {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #38bdf8;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  padding-left: 10px;
+}
+
+.card-chip {
+  width: 38px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
+}
+
+.card-center-info {
+  margin-bottom: 16px;
+}
+
+.card-info-group .card-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.8px;
+  display: block;
+}
+
+.card-client-name {
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.card-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  align-items: flex-end;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  padding-top: 14px;
+}
+
+.card-meta .card-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.6px;
+  display: block;
+}
+
+.card-meta .card-value {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 2px;
+}
+
+.card-barcode-box {
+  text-align: right;
+  justify-self: end;
+}
+
+.fake-barcode {
+  font-family: monospace;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+.barcode-number {
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  color: #94a3b8;
+  display: block;
+}
+
+.exito-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-nuevo-registro {
+  width: 100%;
+  padding: 13px 28px;
+  font-size: 1.05rem;
+}
+
+.btn-link-secundario {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.btn-link-secundario:hover {
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  html, body, .app-viewport {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .vista-bienvenida-container,
+  .vista-seleccion-container,
+  .vista-formulario-container,
+  .vista-exito-container {
+    flex-direction: column-reverse;
+    padding: 24px 16px;
+    height: auto;
+  }
+
+  .hero-text-section,
+  .brands-selection-section,
+  .form-content-section {
+    padding-left: 0;
+    text-align: center;
+    height: auto;
+    max-height: none;
+  }
+
+  .hero-content {
+    margin: 0 auto;
+  }
+
+  .mosaic-grid {
+    height: 480px;
+  }
+
+  .preview-card,
+  .form-brand-card {
+    height: 400px;
+  }
+
+  .brands-interactive-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .brand-select-item {
+    align-items: center;
+    text-align: center;
+  }
+
+  .brand-logo-wrapper {
+    justify-content: center;
+  }
+
+  .selection-actions {
+    justify-content: center;
+  }
+
+  .form-grid-2col,
+  .form-grid-3col {
+    grid-template-columns: 1fr;
+  }
+
+  .card-bottom-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}
