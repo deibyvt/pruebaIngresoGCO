@@ -6,14 +6,12 @@ export default function VistaFormulario({
   onCambiarMarca,
   onRegistroExitoso
 }) {
-  // Catálogos desde el backend
   const [tiposDocumento, setTiposDocumento] = useState([]);
   const [paises, setPaises] = useState([]);
   const [departamentos, setDepartamentos] = useState([]);
   const [ciudades, setCiudades] = useState([]);
   const [marcasBackend, setMarcasBackend] = useState([]);
 
-  // Estado del formulario
   const [formData, setFormData] = useState({
     tipoDocumentoId: '',
     numeroDocumento: '',
@@ -27,14 +25,12 @@ export default function VistaFormulario({
     autorizaTratamientoDatos: false,
   });
 
-  // Estados de control
   const [loading, setLoading] = useState(false);
   const [loadingCatalogos, setLoadingCatalogos] = useState(true);
   const [errorGeneral, setErrorGeneral] = useState(null);
   const [erroresValidacion, setErroresValidacion] = useState({});
   const [mostrarModalHabeas, setMostrarModalHabeas] = useState(false);
 
-  // 1. Cargar catálogos iniciales al montar
   useEffect(() => {
     let isMounted = true;
     async function loadCatalogos() {
@@ -51,10 +47,7 @@ export default function VistaFormulario({
           setPaises(listaPaises);
           setMarcasBackend(marcas);
 
-          // Seleccionar primer tipo documento por defecto
           const defaultTipo = tipos.length > 0 ? tipos[0].id : '';
-
-          // Seleccionar primer país (Colombia)
           const defaultPais = listaPaises.length > 0 ? listaPaises[0].id : '';
 
           setFormData((prev) => ({
@@ -63,7 +56,6 @@ export default function VistaFormulario({
             paisId: defaultPais
           }));
 
-          // Si hay país por defecto, cargar sus departamentos
           if (defaultPais) {
             const deptos = await api.getDepartamentos(defaultPais);
             if (isMounted) {
@@ -71,7 +63,6 @@ export default function VistaFormulario({
               const defaultDepto = deptos.length > 0 ? deptos[0].id : '';
               setFormData((prev) => ({ ...prev, departamentoId: defaultDepto }));
 
-              // Cargar ciudades del departamento por defecto
               if (defaultDepto) {
                 const ciuds = await api.getCiudades(defaultDepto);
                 if (isMounted) {
@@ -84,8 +75,8 @@ export default function VistaFormulario({
           }
         }
       } catch (err) {
-        console.error('Error cargando catálogos iniciales:', err);
-        setErrorGeneral('No se pudieron cargar los catálogos del servidor. Verifica la conexión con el backend.');
+        console.error('Error al cargar catalogos:', err);
+        setErrorGeneral('No se pudieron cargar los catalogos del servidor.');
       } finally {
         if (isMounted) setLoadingCatalogos(false);
       }
@@ -95,7 +86,6 @@ export default function VistaFormulario({
     return () => { isMounted = false; };
   }, []);
 
-  // 2. Cascada: Al cambiar país -> recargar departamentos
   const handlePaisChange = async (e) => {
     const paisId = e.target.value;
     setFormData((prev) => ({
@@ -121,12 +111,11 @@ export default function VistaFormulario({
           }
         }
       } catch (err) {
-        console.error('Error cargando departamentos:', err);
+        console.error('Error al cargar departamentos:', err);
       }
     }
   };
 
-  // 3. Cascada: Al cambiar departamento -> recargar ciudades
   const handleDepartamentoChange = async (e) => {
     const departamentoId = e.target.value;
     setFormData((prev) => ({
@@ -144,12 +133,11 @@ export default function VistaFormulario({
           setFormData((prev) => ({ ...prev, ciudadId: ciuds[0].id }));
         }
       } catch (err) {
-        console.error('Error cargando ciudades:', err);
+        console.error('Error al cargar ciudades:', err);
       }
     }
   };
 
-  // Manejo genérico de inputs
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -157,7 +145,6 @@ export default function VistaFormulario({
       [name]: type === 'checkbox' ? checked : value
     }));
 
-    // Limpiar error de validación del campo cuando el usuario escribe
     if (erroresValidacion[name]) {
       setErroresValidacion((prev) => {
         const copy = { ...prev };
@@ -168,19 +155,16 @@ export default function VistaFormulario({
     if (errorGeneral) setErrorGeneral(null);
   };
 
-  // 4. Envío del Formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorGeneral(null);
     setErroresValidacion({});
 
-    // Validar checkbox de Habeas Data localmente
     if (!formData.autorizaTratamientoDatos) {
-      setErrorGeneral('Debes autorizar el tratamiento de datos personales para unirte al programa.');
+      setErrorGeneral('Debes autorizar el tratamiento de datos personales para continuar.');
       return;
     }
 
-    // Obtener el ID de la marca en la base de datos
     let marcaBackendId = null;
     const marcaEncontrada = marcasBackend.find(
       (m) => m.codigo === selectedMarca.codigo || m.nombre.toLowerCase() === selectedMarca.nombre.toLowerCase()
@@ -213,9 +197,9 @@ export default function VistaFormulario({
       console.error('Error en registro:', err);
       if (err.detalles) {
         setErroresValidacion(err.detalles);
-        setErrorGeneral('Por favor corrige los campos indicados en el formulario.');
+        setErrorGeneral('Por favor revisa los campos indicados en el formulario.');
       } else {
-        setErrorGeneral(err.message || 'Ocurrió un error al procesar el registro.');
+        setErrorGeneral(err.message || 'Error al procesar el registro.');
       }
     } finally {
       setLoading(false);
@@ -224,7 +208,6 @@ export default function VistaFormulario({
 
   return (
     <div className="vista-formulario-container">
-      {/* Columna Izquierda: Foto de la marca seleccionada + Botón Cambiar Marca */}
       <div className="form-brand-preview-section">
         <div className="form-brand-card">
           <img
@@ -248,26 +231,23 @@ export default function VistaFormulario({
         </div>
       </div>
 
-      {/* Columna Derecha: Formulario Compacto 100vh */}
       <div className="form-content-section">
         <div className="form-header">
-          <span className="form-subtitle-tag">GRUPO GCO • FIDELIZACIÓN</span>
+          <span className="form-subtitle-tag">GRUPO GCO - FIDELIZACION</span>
           <h2 className="form-main-title">REGISTRO DE CLIENTE</h2>
           <p className="form-lead-text">
-            Inscríbete para disfrutar de acumulación de puntos, lanzamientos exclusivos y beneficios en <strong>{selectedMarca.nombre}</strong>.
+            Ingresa tus datos para registrarte en <strong>{selectedMarca.nombre}</strong>.
           </p>
         </div>
 
         {errorGeneral && (
           <div className="form-alert-error" role="alert">
-            <span className="alert-icon">⚠️</span>
             <span className="alert-text">{errorGeneral}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="fidelizacion-form" noValidate>
           <div className="form-grid-2col">
-            {/* Tipo de Documento */}
             <div className="form-field-group">
               <label htmlFor="tipoDocumentoId" className="form-label">
                 Tipo Identificación *
@@ -292,7 +272,6 @@ export default function VistaFormulario({
               )}
             </div>
 
-            {/* Número de Documento */}
             <div className="form-field-group">
               <label htmlFor="numeroDocumento" className="form-label">
                 Número Identificación *
@@ -313,7 +292,6 @@ export default function VistaFormulario({
               )}
             </div>
 
-            {/* Nombres */}
             <div className="form-field-group">
               <label htmlFor="nombres" className="form-label">
                 Nombres *
@@ -334,7 +312,6 @@ export default function VistaFormulario({
               )}
             </div>
 
-            {/* Apellidos */}
             <div className="form-field-group">
               <label htmlFor="apellidos" className="form-label">
                 Apellidos *
@@ -343,7 +320,7 @@ export default function VistaFormulario({
                 id="apellidos"
                 type="text"
                 name="apellidos"
-                placeholder="Ej. Gómez Pérez"
+                placeholder="Ej. Gomez Perez"
                 className={`form-input ${erroresValidacion.apellidos ? 'is-invalid' : ''}`}
                 value={formData.apellidos}
                 onChange={handleChange}
@@ -355,7 +332,6 @@ export default function VistaFormulario({
               )}
             </div>
 
-            {/* Fecha de Nacimiento */}
             <div className="form-field-group">
               <label htmlFor="fechaNacimiento" className="form-label">
                 Fecha de Nacimiento *
@@ -375,7 +351,6 @@ export default function VistaFormulario({
               )}
             </div>
 
-            {/* Dirección */}
             <div className="form-field-group">
               <label htmlFor="direccion" className="form-label">
                 Dirección de Residencia *
@@ -384,7 +359,7 @@ export default function VistaFormulario({
                 id="direccion"
                 type="text"
                 name="direccion"
-                placeholder="Ej. Calle 10 # 43E-22, El Poblado"
+                placeholder="Ej. Calle 10 # 43E-22"
                 className={`form-input ${erroresValidacion.direccion ? 'is-invalid' : ''}`}
                 value={formData.direccion}
                 onChange={handleChange}
@@ -397,9 +372,7 @@ export default function VistaFormulario({
             </div>
           </div>
 
-          {/* Geografía en Cascada (País -> Departamento -> Ciudad) */}
           <div className="form-grid-3col">
-            {/* País */}
             <div className="form-field-group">
               <label htmlFor="paisId" className="form-label">
                 País *
@@ -421,7 +394,6 @@ export default function VistaFormulario({
               </select>
             </div>
 
-            {/* Departamento */}
             <div className="form-field-group">
               <label htmlFor="departamentoId" className="form-label">
                 Departamento *
@@ -443,7 +415,6 @@ export default function VistaFormulario({
               </select>
             </div>
 
-            {/* Ciudad */}
             <div className="form-field-group">
               <label htmlFor="ciudadId" className="form-label">
                 Ciudad *
@@ -469,7 +440,6 @@ export default function VistaFormulario({
             </div>
           </div>
 
-          {/* Habeas Data Legal Checkbox */}
           <div className="habeas-data-container">
             <label className="habeas-checkbox-label">
               <input
@@ -481,7 +451,7 @@ export default function VistaFormulario({
                 required
               />
               <span className="habeas-text">
-                Autorizo el tratamiento de mis datos personales según la <strong>Ley 1581 de 2012</strong> (Habeas Data) y la política de privacidad de Grupo Uribe.{' '}
+                Autorizo el tratamiento de mis datos personales según la <strong>Ley 1581 de 2012</strong> y la política de privacidad.{' '}
                 <button
                   type="button"
                   className="btn-ver-politica"
@@ -493,31 +463,23 @@ export default function VistaFormulario({
             </label>
           </div>
 
-          {/* Botón Submit */}
           <div className="form-submit-row">
             <button
               type="submit"
               className="btn-unirme btn-submit-form"
               disabled={loading}
             >
-              {loading ? (
-                <span className="loading-spinner-wrapper">
-                  <span className="spinner-icon"></span> Registrando...
-                </span>
-              ) : (
-                `Completar Registro en ${selectedMarca.nombre} →`
-              )}
+              {loading ? 'Registrando...' : `Registrarme en ${selectedMarca.nombre}`}
             </button>
           </div>
         </form>
       </div>
 
-      {/* Modal de Política de Habeas Data */}
       {mostrarModalHabeas && (
         <div className="modal-backdrop" onClick={() => setMostrarModalHabeas(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h3 className="modal-title">Política de Tratamiento de Datos (Ley 1581 de 2012)</h3>
+              <h3 className="modal-title">Tratamiento de Datos Personales (Ley 1581 de 2012)</h3>
               <button
                 type="button"
                 className="btn-close-modal"
@@ -528,15 +490,14 @@ export default function VistaFormulario({
             </div>
             <div className="modal-body">
               <p>
-                En cumplimiento de la <strong>Ley Estatutaria 1581 de 2012</strong> y sus decretos reglamentarios, el <strong>Grupo Uribe (GCO)</strong> y sus marcas asociadas (<em>Americanino, American Eagle, Chevignon, Esprit, Naf Naf, Rifle</em>) informan que los datos suministrados serán incorporados a nuestra base de datos de fidelización con las siguientes finalidades:
+                Los datos suministrados seran incorporados a la base de datos de fidelizacion de Grupo Uribe (GCO) para las siguientes finalidades:
               </p>
               <ul>
-                <li>Gestión, administración y liquidación de puntos y beneficios del programa de fidelización.</li>
-                <li>Envío de comunicaciones comerciales, descuentos especiales y lanzamientos de nuevas colecciones.</li>
-                <li>Personalización de promociones y ofertas exclusivas de acuerdo a sus preferencias.</li>
+                <li>Administracion del programa de fidelizacion y puntos.</li>
+                <li>Envio de novedades, beneficios y promociones exclusivas.</li>
               </ul>
               <p>
-                Como titular de la información, usted tiene derecho a conocer, actualizar, rectificar o solicitar la supresión de sus datos personales a través de nuestros canales oficiales de atención al cliente.
+                El titular puede ejercer sus derechos de conocer, actualizar o suprimir sus datos a traves de los canales de atencion.
               </p>
             </div>
             <div className="modal-footer">
@@ -548,7 +509,7 @@ export default function VistaFormulario({
                   setMostrarModalHabeas(false);
                 }}
               >
-                Entendido y Autorizo ✓
+                Entendido y Autorizo
               </button>
             </div>
           </div>
@@ -557,4 +518,3 @@ export default function VistaFormulario({
     </div>
   );
 }
-

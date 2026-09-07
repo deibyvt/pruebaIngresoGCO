@@ -10,9 +10,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/**
- * Entidad principal: Registro de cliente en el programa de fidelización de una marca GCO.
- */
 @Entity
 @Table(
     name = "clientes",
@@ -61,9 +58,6 @@ public class Cliente {
     @JoinColumn(name = "marca_id", nullable = false)
     private Marca marca;
 
-    /**
-     * Requisito legal de Habeas Data en Colombia (Ley 1581 de 2012)
-     */
     @Column(name = "autoriza_tratamiento_datos", nullable = false)
     @Builder.Default
     private Boolean autorizaTratamientoDatos = true;
@@ -78,4 +72,3 @@ public class Cliente {
         }
     }
 }
-

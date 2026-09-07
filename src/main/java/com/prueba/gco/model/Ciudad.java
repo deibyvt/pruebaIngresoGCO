@@ -7,9 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * Catálogo para Ciudades o Municipios, vinculados a un Departamento.
- */
 @Entity
 @Table(name = "ciudades")
 @Getter
@@ -24,10 +21,9 @@ public class Ciudad {
     private Long id;
 
     @Column(nullable = false, length = 100)
-    private String nombre; // Ej: "Medellín", "Envigado", "Bogotá"
+    private String nombre;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;
 }
-

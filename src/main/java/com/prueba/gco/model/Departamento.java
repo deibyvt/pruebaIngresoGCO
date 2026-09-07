@@ -7,9 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * Catálogo para Departamentos o Provincias, vinculados a un País.
- */
 @Entity
 @Table(name = "departamentos")
 @Getter
@@ -24,10 +21,9 @@ public class Departamento {
     private Long id;
 
     @Column(nullable = false, length = 100)
-    private String nombre; // Ej: "Antioquia", "Cundinamarca"
+    private String nombre;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pais_id", nullable = false)
     private Pais pais;
 }
-

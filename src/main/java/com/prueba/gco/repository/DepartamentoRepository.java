@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface DepartamentoRepository extends JpaRepository<Departamento, Long> {
 
-    // Permite cargar únicamente los departamentos del país seleccionado (filtro en cascada)
     List<Departamento> findByPaisId(Long paisId);
 }
 

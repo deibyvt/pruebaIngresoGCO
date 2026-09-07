@@ -1,10 +1,6 @@
 const API_BASE_URL = 'http://localhost:8080/api';
 
-/**
- * Servicio centralizado para comunicación con el backend Spring Boot.
- */
 export const api = {
-  // Catálogos
   async getTiposDocumento() {
     const res = await fetch(`${API_BASE_URL}/catalogos/tipos-documento`);
     if (!res.ok) throw new Error('Error al cargar tipos de documento');
@@ -19,7 +15,7 @@ export const api = {
 
   async getPaises() {
     const res = await fetch(`${API_BASE_URL}/catalogos/paises`);
-    if (!res.ok) throw new Error('Error al cargar países');
+    if (!res.ok) throw new Error('Error al cargar paises');
     return res.json();
   },
 
@@ -35,7 +31,6 @@ export const api = {
     return res.json();
   },
 
-  // Clientes
   async registrarCliente(clienteData) {
     const res = await fetch(`${API_BASE_URL}/clientes`, {
       method: 'POST',
@@ -48,7 +43,6 @@ export const api = {
     const data = await res.json();
 
     if (!res.ok) {
-      // Manejar error de validación o de regla de negocio
       const error = new Error(data.mensaje || data.error || 'Error al registrar cliente');
       error.status = res.status;
       error.detalles = data.errores || null;
@@ -64,4 +58,3 @@ export const api = {
     return res.json();
   },
 };
-

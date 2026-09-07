@@ -7,12 +7,10 @@ export default function VistaSeleccionMarca({
   onContinuar,
   onVolver
 }) {
-  // Asegurar que siempre tengamos una marca seleccionada (por defecto Americanino o la primera)
   const currentMarca = selectedMarca || MARCAS_DATA.find(m => m.codigo === 'AMERICANINO') || MARCAS_DATA[0];
 
   return (
     <div className="vista-seleccion-container">
-      {/* Columna Izquierda: Foto de la marca en proporción real y esquinas redondeadas */}
       <div className="preview-section">
         <div className="preview-card">
           <img
@@ -24,7 +22,6 @@ export default function VistaSeleccionMarca({
         </div>
       </div>
 
-      {/* Columna Derecha: Selector de marcas 2x3 */}
       <div className="brands-selection-section">
         <div className="brands-selection-header">
           <button 

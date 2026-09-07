@@ -7,9 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * Catálogo para Países (ej: Colombia).
- */
 @Entity
 @Table(name = "paises")
 @Getter
@@ -24,9 +21,8 @@ public class Pais {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 10)
-    private String codigo; // Ej: "CO"
+    private String codigo;
 
     @Column(nullable = false, unique = true, length = 100)
-    private String nombre; // Ej: "Colombia"
+    private String nombre;
 }
-

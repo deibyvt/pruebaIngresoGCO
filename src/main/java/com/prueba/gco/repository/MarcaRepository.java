@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface MarcaRepository extends JpaRepository<Marca, Long> {
 
-    // Retorna las marcas de GCO activas para el dropdown
     List<Marca> findByActivoTrue();
 
     Optional<Marca> findByCodigo(String codigo);

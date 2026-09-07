@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * DTO genérico para elementos de catálogo (tipo documento, marca, país, etc.)
- */
 @Getter
 @Setter
 @NoArgsConstructor

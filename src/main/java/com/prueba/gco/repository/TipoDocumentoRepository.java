@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface TipoDocumentoRepository extends JpaRepository<TipoDocumento, Long> {
 
-    // Retorna solo los tipos de documento activos para mostrarlos en el select del frontend
     List<TipoDocumento> findByActivoTrue();
 
     Optional<TipoDocumento> findByCodigo(String codigo);

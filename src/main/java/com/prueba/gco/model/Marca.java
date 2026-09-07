@@ -7,10 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * Catálogo para las marcas del Grupo Uribe (GCO):
- * Americanino, American Eagle, Chevignon, Esprit, Naf Naf, Rifle.
- */
 @Entity
 @Table(name = "marcas")
 @Getter
@@ -25,10 +21,10 @@ public class Marca {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 30)
-    private String codigo; // Ej: "AMERICANINO", "CHEVIGNON"
+    private String codigo;
 
     @Column(nullable = false, length = 80)
-    private String nombre; // Ej: "Americanino", "American Eagle"
+    private String nombre;
 
     @Column(length = 255)
     private String descripcion;
@@ -37,4 +33,3 @@ public class Marca {
     @Builder.Default
     private Boolean activo = true;
 }
-

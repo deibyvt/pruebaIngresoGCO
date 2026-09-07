@@ -4,9 +4,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * Configuración global de CORS para permitir la comunicación fluida con el frontend (React + Vite).
- */
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
@@ -24,4 +21,3 @@ public class CorsConfig implements WebMvcConfigurer {
             .maxAge(3600);
     }
 }
-

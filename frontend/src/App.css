@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat+Alternates:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
-/* ==========================================================================
-   RESET & VIEWPORT (NO SCROLL, 100% PANTALLA COMPLETA)
-   ========================================================================== */
-
 :root {
   --font-title: 'Bebas Neue', sans-serif;
   --font-body: 'Montserrat Alternates', sans-serif;
@@ -20,7 +16,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* CERO scroll vertical */
+  overflow: hidden;
   font-family: var(--font-body);
   background-color: #ccd3db;
   -webkit-font-smoothing: antialiased;
@@ -32,16 +28,11 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  /* Fondo estilo estudio fotográfico en código puro (degradado radial uniforme) */
   background: radial-gradient(circle at 45% 50%, #e3e8ee 0%, #cbd3dc 48%, #afb8c3 100%);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-/* ==========================================================================
-   VISTA 1: BIENVENIDA (HERO 100VH)
-   ========================================================================== */
 
 .vista-bienvenida-container {
   width: 100%;
@@ -55,7 +46,6 @@ html, body {
   gap: 48px;
 }
 
-/* Columna Izquierda: Mosaico 2x3 con fotos originales en proporción real */
 .mosaic-section {
   flex: 1.1;
   height: 100%;
@@ -77,7 +67,7 @@ html, body {
   border-radius: 18px;
   overflow: hidden;
   height: 100%;
-  aspect-ratio: 788 / 963; /* Proporción nativa exacta de las fotos (788x963 px) */
+  aspect-ratio: 788 / 963;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.09);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
@@ -90,11 +80,10 @@ html, body {
 .mosaic-bg-img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Proporción matemática perfecta sin cortes */
+  object-fit: contain;
   display: block;
 }
 
-/* Columna Derecha: Contenido Editorial */
 .hero-text-section {
   flex: 1;
   display: flex;
@@ -129,7 +118,7 @@ html, body {
 
 .btn-unirme {
   display: inline-block;
-  background-color: #17425f; /* Azul petróleo de la referencia */
+  background-color: #17425f;
   color: #ffffff;
   font-family: var(--font-body);
   font-size: 1.2rem;
@@ -152,10 +141,6 @@ html, body {
   transform: translateY(0);
 }
 
-/* ==========================================================================
-   VISTA 2: SELECCIÓN DE MARCA (100VH)
-   ========================================================================== */
-
 .vista-seleccion-container {
   width: 100%;
   height: 100%;
@@ -168,7 +153,6 @@ html, body {
   gap: 56px;
 }
 
-/* Columna Izquierda: Foto de modelo de la marca seleccionada */
 .preview-section {
   flex: 0.95;
   height: 100%;
@@ -213,7 +197,6 @@ html, body {
   animation: fadeInImage 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Columna Derecha: Encabezado, Grid de 6 marcas y Botón Continuar */
 .brands-selection-section {
   flex: 1.25;
   height: min(84vh, 720px);
@@ -256,7 +239,6 @@ html, body {
   letter-spacing: -0.4px;
 }
 
-/* Grid de marcas: 2 columnas x 3 filas */
 .brands-interactive-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -348,10 +330,6 @@ html, body {
   font-size: 1.1rem;
 }
 
-/* ==========================================================================
-   VISTA 3: FORMULARIO DE REGISTRO COMPACTO (100VH)
-   ========================================================================== */
-
 .vista-formulario-container {
   width: 100%;
   height: 100%;
@@ -364,7 +342,6 @@ html, body {
   gap: 48px;
 }
 
-/* Columna Izquierda: Foto destacada con badge y botón cambiar */
 .form-brand-preview-section {
   flex: 0.9;
   height: 100%;
@@ -450,7 +427,6 @@ html, body {
   margin-top: 2px;
 }
 
-/* Columna Derecha: Tarjeta de Formulario */
 .form-content-section {
   flex: 1.25;
   max-height: min(88vh, 720px);
@@ -628,30 +604,6 @@ html, body {
   font-size: 1.05rem;
 }
 
-.loading-spinner-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.spinner-icon {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #ffffff;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
-  display: inline-block;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Modal Habeas Data */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -730,10 +682,6 @@ html, body {
   font-size: 0.92rem;
 }
 
-/* ==========================================================================
-   VISTA 4: MEMBRESÍA DIGITAL / ÉXITO (100VH)
-   ========================================================================== */
-
 .vista-exito-container {
   width: 100%;
   height: 100%;
@@ -759,21 +707,6 @@ html, body {
 
 .exito-header {
   margin-bottom: 20px;
-}
-
-.exito-badge-check {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #10b981;
-  color: #ffffff;
-  font-size: 1.6rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 10px;
-  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
 }
 
 .exito-tag {
@@ -802,7 +735,6 @@ html, body {
   line-height: 1.35;
 }
 
-/* Tarjeta de Membresía VIP */
 .digital-membership-card {
   background: linear-gradient(135deg, #17425f 0%, #0d283c 100%);
   color: #ffffff;
@@ -959,10 +891,6 @@ html, body {
 .btn-link-secundario:hover {
   color: #0f172a;
 }
-
-/* ==========================================================================
-   RESPONSIVE
-   ========================================================================== */
 
 @media (max-width: 900px) {
   html, body, .app-viewport {

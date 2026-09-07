@@ -13,7 +13,6 @@ import com.prueba.gco.repository.ClienteRepository;
 import com.prueba.gco.repository.MarcaRepository;
 import com.prueba.gco.repository.TipoDocumentoRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
@@ -31,25 +29,18 @@ public class ClienteService {
 
     @Transactional
     public ClienteResponseDTO registrarCliente(ClienteRegistroRequestDTO request) {
-        log.info("Iniciando registro de cliente: documento {} para marca id {}", 
-            request.getNumeroDocumento(), request.getMarcaId());
-
-        // 1. Validar existencia del tipo de documento
         TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(request.getTipoDocumentoId())
             .orElseThrow(() -> new RecursoNoEncontradoException(
                 "Tipo de documento no encontrado con id: " + request.getTipoDocumentoId()));
 
-        // 2. Validar existencia de la marca seleccionada
         Marca marca = marcaRepository.findById(request.getMarcaId())
             .orElseThrow(() -> new RecursoNoEncontradoException(
                 "Marca no encontrada con id: " + request.getMarcaId()));
 
-        // 3. Validar existencia de la ciudad seleccionada
         Ciudad ciudad = ciudadRepository.findById(request.getCiudadId())
             .orElseThrow(() -> new RecursoNoEncontradoException(
                 "Ciudad no encontrada con id: " + request.getCiudadId()));
 
-        // 4. Regla de Negocio: No duplicar cliente dentro de la misma marca
         String docLimpio = request.getNumeroDocumento().trim();
         boolean yaInscrito = clienteRepository.existsByTipoDocumentoIdAndNumeroDocumentoAndMarcaId(
             tipoDocumento.getId(),
@@ -64,7 +55,6 @@ public class ClienteService {
             );
         }
 
-        // 5. Mapear y construir la entidad
         Cliente cliente = Cliente.builder()
             .tipoDocumento(tipoDocumento)
             .numeroDocumento(docLimpio)
@@ -78,9 +68,6 @@ public class ClienteService {
             .build();
 
         Cliente guardado = clienteRepository.save(cliente);
-        log.info("Cliente registrado con éxito id: {}", guardado.getId());
-
-        // 6. Retornar DTO de respuesta limpio
         return mapearADTO(guardado);
     }
 
@@ -128,4 +115,3 @@ public class ClienteService {
             .build();
     }
 }
-

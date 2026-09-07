@@ -9,10 +9,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-/**
- * DTO para la petición de registro de un cliente en el programa de fidelización.
- * Contiene todas las validaciones de entrada exigidas por el negocio.
- */
 @Getter
 @Setter
 @NoArgsConstructor

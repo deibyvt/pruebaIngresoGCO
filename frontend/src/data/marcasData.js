@@ -1,10 +1,3 @@
-/**
- * Datos estáticos y referencias a los recursos visuales de las 6 marcas de GCO.
- * Ordenados exactamente como en el diseño de referencia:
- * Fila 1: Rifle, Esprit
- * Fila 2: Naf Naf, American Eagle
- * Fila 3: Chevignon, Americanino
- */
 export const MARCAS_DATA = [
   {
     codigo: 'RIFLE',

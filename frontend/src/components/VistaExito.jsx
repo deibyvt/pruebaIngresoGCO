@@ -13,17 +13,14 @@ export default function VistaExito({
   return (
     <div className="vista-exito-container">
       <div className="exito-content-card">
-        {/* Cabecera de Felicitación */}
         <div className="exito-header">
-          <div className="exito-badge-check">✓</div>
-          <span className="exito-tag">¡REGISTRO COMPLETADO CON ÉXITO!</span>
-          <h2 className="exito-title">BIENVENIDO AL CLUB {selectedMarca.nombre.toUpperCase()}</h2>
+          <span className="exito-tag">REGISTRO COMPLETADO</span>
+          <h2 className="exito-title">BIENVENIDO A {selectedMarca.nombre.toUpperCase()}</h2>
           <p className="exito-subtitle">
-            Tu membresía VIP en el programa de fidelización de Grupo Uribe (GCO) ya se encuentra activa en el sistema.
+            El registro en el programa de fidelizacion se ha completado correctamente.
           </p>
         </div>
 
-        {/* Tarjeta de Membresía Digital Estilo Tarjeta VIP */}
         <div className="digital-membership-card">
           <div className="card-top-bar">
             <div className="card-brand-info">
@@ -32,14 +29,14 @@ export default function VistaExito({
                 alt={`Logo ${selectedMarca.nombre}`}
                 className="card-brand-logo"
               />
-              <span className="card-member-tier">VIP LOYALTY MEMBER</span>
+              <span className="card-member-tier">MIEMBRO FIDELIZADO</span>
             </div>
             <div className="card-chip"></div>
           </div>
 
           <div className="card-center-info">
             <div className="card-info-group">
-              <span className="card-label">TITULAR DE LA MEMBRESÍA</span>
+              <span className="card-label">TITULAR</span>
               <p className="card-client-name">
                 {cliente?.nombreCompleto || `${cliente?.nombres} ${cliente?.apellidos}`}
               </p>
@@ -48,7 +45,7 @@ export default function VistaExito({
 
           <div className="card-bottom-grid">
             <div className="card-meta">
-              <span className="card-label">IDENTIFICACIÓN</span>
+              <span className="card-label">IDENTIFICACION</span>
               <p className="card-value">
                 {cliente?.tipoDocumentoCodigo || 'CC'} {cliente?.numeroDocumento}
               </p>
@@ -57,12 +54,12 @@ export default function VistaExito({
             <div className="card-meta">
               <span className="card-label">CIUDAD</span>
               <p className="card-value">
-                {cliente?.ciudadNombre || 'Medellín'}, {cliente?.paisNombre || 'Colombia'}
+                {cliente?.ciudadNombre || 'Medellin'}, {cliente?.paisNombre || 'Colombia'}
               </p>
             </div>
 
             <div className="card-meta">
-              <span className="card-label">FECHA DE EMISIÓN</span>
+              <span className="card-label">FECHA</span>
               <p className="card-value">{fecha}</p>
             </div>
 
@@ -77,25 +74,23 @@ export default function VistaExito({
           </div>
         </div>
 
-        {/* Botones de acción */}
         <div className="exito-actions">
           <button
             type="button"
             className="btn-unirme btn-nuevo-registro"
             onClick={onNuevoRegistro}
           >
-            + Inscribir a otro cliente
+            Inscribir a otro cliente
           </button>
           <button
             type="button"
             className="btn-link-secundario"
             onClick={onVolverInicio}
           >
-            ← Volver a la portada principal
+            Volver al inicio
           </button>
         </div>
       </div>
     </div>
   );
 }
-

@@ -7,7 +7,6 @@ import { MARCAS_DATA } from './data/marcasData';
 import './App.css';
 
 export default function App() {
-  // 'inicio' | 'seleccion-marca' | 'formulario' | 'exito'
   const [paso, setPaso] = useState('inicio');
   const [selectedMarca, setSelectedMarca] = useState(
     () => MARCAS_DATA.find(m => m.codigo === 'AMERICANINO') || MARCAS_DATA[0]

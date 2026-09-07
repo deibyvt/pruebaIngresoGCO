@@ -11,9 +11,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Manejador centralizado de errores para responder con JSONs uniformes y códigos HTTP precisos.
- */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

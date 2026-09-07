@@ -3,7 +3,6 @@ package com.prueba.gco.config;
 import com.prueba.gco.model.*;
 import com.prueba.gco.repository.*;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,13 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Seeder automático: puebla la base de datos con las marcas de GCO,
- * los tipos de documento y la geografía si las tablas están vacías.
- */
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class DataInitializer implements CommandLineRunner {
 
     private final TipoDocumentoRepository tipoDocumentoRepository;
@@ -38,7 +32,6 @@ public class DataInitializer implements CommandLineRunner {
         if (tipoDocumentoRepository.count() > 0) {
             return;
         }
-        log.info("Inicializando catálogo de Tipos de Documento...");
         List<TipoDocumento> tipos = Arrays.asList(
             TipoDocumento.builder().codigo("CC").nombre("Cédula de Ciudadanía").activo(true).build(),
             TipoDocumento.builder().codigo("CE").nombre("Cédula de Extranjería").activo(true).build(),
@@ -47,14 +40,12 @@ public class DataInitializer implements CommandLineRunner {
             TipoDocumento.builder().codigo("PEP").nombre("Permiso Especial de Permanencia").activo(true).build()
         );
         tipoDocumentoRepository.saveAll(tipos);
-        log.info("Tipos de Documento creados exitosamente.");
     }
 
     private void inicializarMarcas() {
         if (marcaRepository.count() > 0) {
             return;
         }
-        log.info("Inicializando catálogo de Marcas del Grupo Uribe (GCO)...");
         List<Marca> marcas = Arrays.asList(
             Marca.builder()
                 .codigo("AMERICANINO")
@@ -94,14 +85,12 @@ public class DataInitializer implements CommandLineRunner {
                 .build()
         );
         marcaRepository.saveAll(marcas);
-        log.info("Marcas de GCO creadas exitosamente.");
     }
 
     private void inicializarGeografia() {
         if (paisRepository.count() > 0) {
             return;
         }
-        log.info("Inicializando jerarquía geográfica (País -> Departamentos -> Ciudades)...");
 
         Pais colombia = Pais.builder()
             .codigo("CO")
@@ -109,7 +98,6 @@ public class DataInitializer implements CommandLineRunner {
             .build();
         colombia = paisRepository.save(colombia);
 
-        // Departamentos
         Departamento antioquia = crearDepto("Antioquia", colombia);
         Departamento cundinamarca = crearDepto("Cundinamarca", colombia);
         Departamento valle = crearDepto("Valle del Cauca", colombia);
@@ -119,7 +107,6 @@ public class DataInitializer implements CommandLineRunner {
         Departamento risaralda = crearDepto("Risaralda", colombia);
         Departamento caldas = crearDepto("Caldas", colombia);
 
-        // Ciudades
         crearCiudades(antioquia, "Medellín", "Envigado", "Itagüí", "Bello", "Sabaneta", "Rionegro");
         crearCiudades(cundinamarca, "Bogotá D.C.", "Soacha", "Chía", "Zipaquirá", "Facatativá");
         crearCiudades(valle, "Cali", "Palmira", "Buenaventura", "Tuluá", "Buga");
@@ -128,8 +115,6 @@ public class DataInitializer implements CommandLineRunner {
         crearCiudades(bolivar, "Cartagena", "Magangué");
         crearCiudades(risaralda, "Pereira", "Dosquebradas", "Santa Rosa de Cabal");
         crearCiudades(caldas, "Manizales", "Villamaría", "Chinchiná");
-
-        log.info("Geografía inicializada exitosamente.");
     }
 
     private Departamento crearDepto(String nombre, Pais pais) {
@@ -146,4 +131,3 @@ public class DataInitializer implements CommandLineRunner {
         }
     }
 }
-

@@ -10,9 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-    /**
-     * Valida si ya existe un cliente con el mismo documento para esa marca específica
-     */
     boolean existsByTipoDocumentoIdAndNumeroDocumentoAndMarcaId(
         Long tipoDocumentoId,
         String numeroDocumento,
